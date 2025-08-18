@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/* roboto-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/fonts/roboto-v48-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* roboto-600 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  src: url("./assets/fonts/roboto-v48-latin-600.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* roboto-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./assets/fonts/roboto-v48-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* manual reset not needed in tailwind4 it also covers typography, form elements+++ */
+/* *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+:root {
+  /* Brand Colors (for Logo) */
+  --logoblue: #2a66ff;
+  --logoteal: #00c8b4;
+  --logonavy: #0a1e3f;
+
+  /* Layout Colors (UI Backgrounds, Text, etc.) */
+  --bglight: #f9fafb;
+  --bgdark: #1e293b;
+  --textdark: #0f172a;
+  --textgray: #475569;
+  --borders: #e2e8f0;
+}
+
+@layer utilities {
+  /* Linear Gradients (for Buttons and Sections) */
+  .gradient1 {
+    background: linear-gradient(90deg, #2a66ff, #00c8b4);
+  }
+  .gradient2 {
+    background: linear-gradient(90deg, #00c8b4, #2a66ff);
+  }
+  .gradient3 {
+    background: linear-gradient(180deg, #f0f4ff, #d9e4ff);
+  }
+
+  .bgdark {
+    background-color: #1e293b;
+  }
+  .textdark {
+    color: #1e293b;
+  }
+
+  .bglight {
+    background-color: #f9fafb;
+  }
+
+  .textlight {
+    color: #f9fafb;
+  }
+
+  .bggray {
+    background-color: #475569;
+  }
+  .textgray {
+    color: #475569;
+  }
+
+  .bgblue {
+    background-color: #2a66ff !important;
+  }
+  .textblue {
+    color: #2a66ff !important;
+  }
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
