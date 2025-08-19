@@ -19,7 +19,7 @@ const ChatArea = ({ selectedUser, setSelectedUser }: SidebarProps) => {
       <div className="flex flex-row items-center justify-between gap-2 border-b border-[var(--borders)]">
         <div className="flex flex-row items-center gap-2 pb-3">
           <img
-            src={assets.profile_martin}
+            src={assets.profile_martin}cd
             alt="profile image"
             className="w-10 h-10 rounded-full"
           />
