@@ -1,24 +1,53 @@
-# Logs
-logs
-*.log
+# Node dependencies
+node_modules/
+
+# Vite cache
+.vite/
+
+# Production build output
+dist/
+
+# Log files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Environment variables
+.env
+.env.*.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.sublime*
+*.code-workspace
+
+# System files
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+
+# Coverage outputs
+coverage/
+*.lcov
+
+# JetBrains (WebStorm, etc.)
+*.iml
+out/
+# See https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore for more
+
+
+# Optional: Mac system file
+.AppleDouble
+
+# Optional: Windows system file
+Desktop.ini
+
+# Optional: Local history for VSCode
+.history/
+
+# Optional: npm/yarn package lock files (customize as per team)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml

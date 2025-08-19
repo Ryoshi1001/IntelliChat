@@ -1,7 +1,7 @@
 import { useState } from "react";
 import RightSidebar from "../components/RightSidebar";
 import SideBar from "../components/Sidebar";
-import ChatArea from "./ChatArea";
+import ChatArea from "../components/ChatArea";
 
 const Home = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);

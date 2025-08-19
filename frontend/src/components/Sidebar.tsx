@@ -3,17 +3,12 @@ import assets, { userDummyData } from "../assets/assets";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { Search } from "lucide-react";
 
-interface SidebarProps {
-  selectedUser: User | null;
-  setSelectedUser: React.Dispatch<React.SetStateAction<User | null>>;
-}
-
 const Sidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
   const navigate = useNavigate();
 
   return (
     <div className={`
-      bg-[#8185b2]/10 px-4 rounded-r-xl flex h-full w-full flex-col overflow-hidden 
+     rounded-l-2xl px-4  flex h-full w-full flex-col overflow-hidden  bg-[#8185b2]/10
       ${selectedUser ? "max-md:hidden" : ""}
     `}>
       <div className="pb-2 flex-shrink-0">
