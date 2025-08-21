@@ -42,7 +42,7 @@
   --bglight: #f9fafb;
   --bgdark: #1e293b;
   --textdark: #0f172a;
-  --textgray: #475569;
+  --textgray: #6d7b90;
   --borders: #e2e8f0;
 }
 
@@ -77,7 +77,7 @@
     background-color: #475569;
   }
   .textgray {
-    color: #475569;
+    color: #6d7b90;
   }
 
   .bgblue {

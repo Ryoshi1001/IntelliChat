@@ -1,4 +1,4 @@
-import assets, { imagesDummyData, messagesDummyData } from "../assets/assets";
+import assets, { imagesDummyData } from "../assets/assets";
 
 const RightSidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
   return (
@@ -9,7 +9,7 @@ const RightSidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
       `}
       >
         {/* user info and bio */}
-        <div className="flex flex-shink-0 flex-col items-center pt-16  gap-3 textlight">
+        <div className="flex flex-shink-0 flex-col items-center pt-10  gap-3 textlight">
           <img
             src={selectedUser.profilePic || assets.avatar_icon}
             alt="profile image"
@@ -26,8 +26,8 @@ const RightSidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
         <hr className="my-4" />
 
         {/* media files */}
-        <div className="px-4 mb-3 text-xs flex-1 h-full overflow-hidden">
-          <p>Media</p>
+        <div className="px-4 mb-1 text-xs flex-1 h-full overflow-hidden">
+          <p className="font-bold">Media</p>
           <div className="grid pb-14 min-h-full grid-cols-2 overflow-y-scroll max-h-[200px] mt-2 gap-4 opacity-80">
             {imagesDummyData.map((img, index) => (
               <div

@@ -19,7 +19,7 @@ const ChatArea = ({ selectedUser, setSelectedUser }: SidebarProps) => {
       <div className="flex flex-row items-center justify-between gap-2 border-b border-[var(--borders)]">
         <div className="flex flex-row items-center gap-2 pb-3">
           <img
-            src={assets.profile_martin}cd
+            src={assets.profile_martin}
             alt="profile image"
             className="w-10 h-10 rounded-full"
           />
@@ -82,7 +82,7 @@ const ChatArea = ({ selectedUser, setSelectedUser }: SidebarProps) => {
       </div>
 
       {/* create message */}
-      <div className="flex flex-row items-center justify-between gap-3">
+      <div className="flex flex-row items-center justify-between gap-3 mt-1">
         <div className="flex bggray items-center rounded-full w-full textlight py-3 px-5">
           <input
             type="text"

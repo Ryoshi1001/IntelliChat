@@ -27,7 +27,7 @@ const Sidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
 
       <div className="flex flex-shrink-0 flex-row gap-2 bggray text-[#fff] rounded-full px-2 py-1">
         <Search className="w-7 h-7" />
-        <input value={""} placeholder="Search here" type="text" className="flex-1 outline-none placeholder:text-[var(--textlight)]" />
+        <input placeholder="Search here" type="text" className="flex-1 outline-none placeholder:text-[var(--textlight)]" />
       </div>
 
       <div className="flex-1 overflow-y-auto flex flex-col gap-3 pb-96 my-4">
