@@ -1,9 +1,6 @@
 import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Layout from "./pages/Layout";
-import Dashboard from "./pages/Dashboard";
-import ChatArea from "./pages/ChatArea";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 

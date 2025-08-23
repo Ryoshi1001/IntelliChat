@@ -1,44 +1,359 @@
+/* claude made ui */
 @import "tailwindcss";
 
 /* roboto-regular - latin */
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-display: swap;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
-  src: url("./assets/fonts/roboto-v48-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url("./assets/fonts/roboto-v48-latin-regular.woff2") format("woff2");
 }
 /* roboto-600 - latin */
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-display: swap;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 600;
-  src: url("./assets/fonts/roboto-v48-latin-600.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url("./assets/fonts/roboto-v48-latin-600.woff2") format("woff2");
 }
 /* roboto-700 - latin */
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-display: swap;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
-  src: url("./assets/fonts/roboto-v48-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url("./assets/fonts/roboto-v48-latin-700.woff2") format("woff2");
 }
 
-/* manual reset not needed in tailwind4 it also covers typography, form elements+++ */
-/* *{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
+:root {
+  /* Primary Brand Colors (from logo) */
+  --primary-dark: #051426;
+  --primary-blue: #1F5C9C;
+  --primary-blue-deep: #163B80;
+  --primary-accent: #1472C0;
+  --primary-light: #D1D5D9;
+
+  /* Extended Color Palette */
+  --background-primary: #0A0F1A;
+  --background-secondary: #111827;
+  --background-tertiary: #1F2937;
+  --background-glass: rgba(31, 92, 156, 0.08);
+  --background-glass-hover: rgba(31, 92, 156, 0.12);
+
+  /* Surface Colors */
+  --surface-primary: rgba(255, 255, 255, 0.05);
+  --surface-secondary: rgba(255, 255, 255, 0.08);
+  --surface-hover: rgba(255, 255, 255, 0.12);
+  --surface-active: rgba(31, 92, 156, 0.15);
+
+  /* Text Colors */
+  --text-primary: #F8FAFC;
+  --text-secondary: #D1D5DB;
+  --text-tertiary: #9CA3AF;
+  --text-muted: #6B7280;
+
+  /* Accent & Interactive Colors */
+  --accent-primary: #1472C0;
+  --accent-secondary: #1F5C9C;
+  --accent-success: #10B981;
+  --accent-warning: #F59E0B;
+  --accent-error: #EF4444;
+
+  /* Border Colors */
+  --border-primary: rgba(255, 255, 255, 0.1);
+  --border-secondary: rgba(255, 255, 255, 0.05);
+  --border-accent: rgba(20, 114, 192, 0.3);
+
+  /* Shadow Colors */
+  --shadow-primary: rgba(5, 20, 38, 0.5);
+  --shadow-accent: rgba(20, 114, 192, 0.2);
+  --shadow-glass: rgba(0, 0, 0, 0.1);
+
+  /* Gradient Definitions */
+  --gradient-primary: linear-gradient(135deg, #1F5C9C 0%, #1472C0 100%);
+  --gradient-secondary: linear-gradient(135deg, #163B80 0%, #1F5C9C 100%);
+  --gradient-accent: linear-gradient(135deg, #1472C0 0%, #10B981 100%);
+  --gradient-background: linear-gradient(135deg, #0A0F1A 0%, #111827 50%, #1F2937 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(31, 92, 156, 0.1) 0%, rgba(20, 114, 192, 0.05) 100%);
+}
+
+@layer utilities {
+  /* Background Utilities */
+  .bg-primary { background-color: var(--background-primary); }
+  .bg-secondary { background-color: var(--background-secondary); }
+  .bg-tertiary { background-color: var(--background-tertiary); }
+  .bg-glass { background-color: var(--background-glass); }
+  
+  /* Surface Utilities */
+  .surface-primary { background-color: var(--surface-primary); }
+  .surface-secondary { background-color: var(--surface-secondary); }
+  .surface-hover { background-color: var(--surface-hover); }
+  .surface-active { background-color: var(--surface-active); }
+
+  /* Text Utilities */
+  .text-primary { color: var(--text-primary); }
+  .text-secondary { color: var(--text-secondary); }
+  .text-tertiary { color: var(--text-tertiary); }
+  .text-muted { color: var(--text-muted); }
+  .text-accent { color: var(--accent-primary); }
+
+  /* Border Utilities */
+  .border-primary { border-color: var(--border-primary); }
+  .border-secondary { border-color: var(--border-secondary); }
+  .border-accent { border-color: var(--border-accent); }
+
+  /* Gradient Utilities */
+  .gradient-primary { background: var(--gradient-primary); }
+  .gradient-secondary { background: var(--gradient-secondary); }
+  .gradient-accent { background: var(--gradient-accent); }
+  .gradient-background { background: var(--gradient-background); }
+  .gradient-glass { background: var(--gradient-glass); }
+
+  /* Glass Morphism Components */
+  .glass-card {
+    background: rgba(3, 103, 189, 0.2);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .glass-card-hover {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .glass-input {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--text-primary);
+  }
+
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(20, 114, 192, 0.1);
+  }
+
+  .glass-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    background: var(--gradient-primary);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(20, 114, 192, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(20, 114, 192, 0.4);
+    background: linear-gradient(135deg, #2563EB 0%, #1472C0 100%);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--accent-primary);
+    transform: translateY(-1px);
+  }
+
+  /* Chat Specific Styles */
+  .chat-container {
+    background: var(--background-secondary);
+    border: 1px solid var(--border-primary);
+  }
+
+  .chat-message-user {
+    background: var(--gradient-primary);
+    color: var(--text-primary);
+    border-radius: 18px 18px 4px 18px;
+  }
+
+  .chat-message-ai {
+    background: var(--surface-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-secondary);
+    border-radius: 18px 18px 18px 4px;
+  }
+
+  .sidebar-item {
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-item:hover {
+    background: var(--surface-hover);
+    border-color: var(--border-accent);
+  }
+
+  .sidebar-item.active {
+    background: var(--surface-active);
+    border-color: var(--accent-primary);
+  }
+
+  /* Animation Utilities */
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(20, 114, 192, 0.3);
+  }
+
+  /* Legacy Support (keeping your existing classes) */
+  .gradient1 { background: var(--gradient-primary); }
+  .gradient2 { background: var(--gradient-secondary); }
+  .gradient3 { background: var(--gradient-glass); }
+  
+  .bgdark { background-color: var(--background-primary); }
+  .textdark { color: var(--text-primary); }
+  .bglight { background-color: var(--surface-primary); }
+  .textlight { color: var(--text-primary); }
+  .bggray { background-color: var(--background-tertiary); }
+  .textgray { color: var(--text-muted); }
+  .bgblue { background-color: var(--accent-primary); }
+  .textblue { color: var(--accent-primary); }
+  .borders { border-color: var(--border-primary); }
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background: var(--gradient-background);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design Helpers */
+@media (max-width: 640px) {
+  .glass-card {
+    border-radius: 12px;
+    margin: 8px;
+  }
+}
+
+/* Focus and Accessibility */
+*:focus {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+button:focus,
+input:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(20, 114, 192, 0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* original working index.css */
+
+/* @import "tailwindcss";
+
+@font-face {
+  font-display: swap;
+   font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/fonts/roboto-v48-latin-regular.woff2") format("woff2"); 
+}
+@font-face {
+  font-display: swap; 
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  src: url("./assets/fonts/roboto-v48-latin-600.woff2") format("woff2"); 
+}
+@font-face {
+  font-display: swap; 
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./assets/fonts/roboto-v48-latin-700.woff2") format("woff2"); 
+}
+
+
 
 :root {
-  /* Brand Colors (for Logo) */
   --logoblue: #2a66ff;
   --logoteal: #00c8b4;
   --logonavy: #0a1e3f;
 
-  /* Layout Colors (UI Backgrounds, Text, etc.) */
   --bglight: #f9fafb;
   --bgdark: #1e293b;
   --textdark: #0f172a;
@@ -47,7 +362,6 @@
 }
 
 @layer utilities {
-  /* Linear Gradients (for Buttons and Sections) */
   .gradient1 {
     background: linear-gradient(90deg, #2a66ff, #00c8b4);
   }
@@ -94,4 +408,4 @@
 
 ::-webkit-scrollbar {
   display: none;
-}
+} */

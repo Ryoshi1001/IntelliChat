@@ -55,10 +55,3 @@ Desktop.ini
 .eslintcache
 .stylelintcache
 
-# ?
-.git/
-.vscode/
-Dockerfile*
-prebuilds/
-node_modules/
-build*/
