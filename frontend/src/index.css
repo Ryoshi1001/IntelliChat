@@ -154,6 +154,7 @@
     font-weight: 600;
     transition: all 0.3s ease;
     box-shadow: 0 4px 16px rgba(20, 114, 192, 0.3);
+    cursor: pointer;
   }
 
   .btn-primary:hover {

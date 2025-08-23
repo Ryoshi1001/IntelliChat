@@ -65,9 +65,13 @@ export const signup = async (req, res) => {
 };
 
 export const login = (req, res) => {
-  res.send("coins login");
+  res.send("login");
 };
 
 export const logout = (req, res) => {
-  res.send("coins logout");
+  res.send("logout");
 };
+
+export const udpateProfile = (req, res) => {
+  res.send("profile update controller")
+}
