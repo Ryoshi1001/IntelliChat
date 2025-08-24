@@ -9,8 +9,8 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const updateProfile = async (e) => {
-    e.preventDefault(); 
-    navigate('/')
+    e.preventDefault();
+    navigate("/");
   };
 
   return (
