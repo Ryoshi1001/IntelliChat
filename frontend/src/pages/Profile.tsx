@@ -3,12 +3,12 @@ import assets from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  const [name, setName] = useState("Martin Johnson");
+  const [fullName, setFullName] = useState("Martin Johnson");
   const [bio, setBio] = useState("");
-  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [profilePic, setProfilePic] = useState<File | null>(null);
   const navigate = useNavigate();
 
-  const updateProfile = async (e) => {
+  const updateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate("/");
   };
@@ -28,7 +28,7 @@ const Profile = () => {
           >
             <input
               type="file"
-              onChange={(e) => setProfileImage(e.target.files?.[0] || null)}
+              onChange={(e) => setProfilePic(e.target.files?.[0] || null)}
               accept=".png, .jpg, jpeg"
               className="text-secondary"
               id="avatar"
@@ -36,8 +36,8 @@ const Profile = () => {
             />
             <img
               src={
-                profileImage
-                  ? URL.createObjectURL(profileImage)
+                profilePic
+                  ? URL.createObjectURL(profilePic)
                   : assets.avatar_icon
               }
               alt="avatar"
@@ -47,9 +47,9 @@ const Profile = () => {
           </label>
 
           <input
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setFullName(e.target.value)}
             type="text"
-            value={name}
+            value={fullName}
             placeholder="Your name"
             className="glass-input p-2 rounded-sm"
             required

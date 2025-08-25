@@ -1,13 +1,13 @@
-import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import generateTokenSetCookies from "../lib/generateTokenSetCookies.js";
-import User from "../models/usermodel.js";
+import User from "../models/userModel.js";
 import cloudinary from "../lib/cloudinaryConnection.js";
 
 export const signup = async (req, res) => {
-  const { fullName, email, password, bio } = req.body;
-
+  
   try {
+    const { fullName, email, password, bio } = req.body;
+
     // check if all required data from frontend is available
     if (!fullName || !email || !password || !bio) {
       return res.json({
@@ -119,23 +119,26 @@ export const checkAuth = (req, res) => {
   })
 }
 
+
 //controller function using cloudinary to update profile images
 export const udpateProfile = async (req, res) => {
   try {
-    const {name, bio, profileImage} = req.body
+    const {fullName, bio, profilePic} = req.body
 
-  //add user id get it from the request / middleware
+  //add user id get it from the request / middleware req.user
   const userId = req.user._id; 
   
+  //let updatedUser to start with empty updateUser
   let updatedUser; 
 
-  // check what user wants to upload, bio or name; with or without image
+  // check what user wants to upload, bio or name only; or profileImage also
   if(!profileImage) {
-    updatedUser = await User.findByIdAndUpdate(userId, {bio, name}, {new: true})
+    updatedUser = await User.findByIdAndUpdate(userId, {bio, fullName}, {new: true})
   } else{
-    const upload = await cloudinary.uploader.upload(profileImage)
+    //import cloudinary: => upload to cloudinary first to get profilePic url
+    const upload = await cloudinary.uploader.upload(profilePic)
 
-    updatedUser = await User.findByIdAndUpdate(userId, {profileImage: upload.secure_url, bio, name}, {new: true})
+    updatedUser = await User.findByIdAndUpdate(userId, {profilePic: upload.secure_url, bio, fullName}, {new: true})
     
     res.json({
       success: true, 

@@ -1,6 +1,5 @@
 //middleware is function that executes before the controller functions
-
-import User from "../models/usermodel";
+import User from "../models/userModel.js";
 import jwt from 'jsonwebtoken'
 
 // Middleware to protect routes: the next is to run the controller function after protectRoute
