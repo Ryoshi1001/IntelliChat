@@ -4,7 +4,7 @@ import SideBar from "../components/Sidebar";
 import ChatArea from "../components/ChatArea";
 
 const Home = () => {
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUser, setSelectedUser] = useState<>(null);
 
   return (
     <div className="min-h-screen bg-primary relative overflow-hidden">

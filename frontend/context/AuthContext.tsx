@@ -90,8 +90,11 @@ const [socket, setSocket] = useState<Socket | null>(null);
   const updateProfile = async (body: any) => {
     try {
       const { data } = await axios.put("/api/auth/update-profile", body);
+      console.log('data in authContext updateaProfile: ', data)
       if (data.success) {
         setAuthUser(data.user);
+        console.log('data . user in updateprofile authcontext: ', data.user)
+
         toast.success(data.message);
       } else {
         toast.error(data.error);

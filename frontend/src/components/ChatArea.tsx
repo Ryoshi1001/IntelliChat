@@ -100,8 +100,8 @@ const ChatArea = ({ selectedUser, setSelectedUser }: SidebarProps) => {
       </div>
     </div>
   ) : (
-    <div className="flex flex-col items-center justify-center gap-2 bg-white/10 max-md:hidden">
-      <img src={assets.logo} alt="" className="max-w-16" />
+    <div className="flex flex-col items-center justify-center h-full gap-2 max-md:hidden">
+      <img src={assets.logo} alt="" className="max-w-64" />
       <p className="font-medium text-lg textlight">Chat anytime, anywhere</p>
     </div>
   );

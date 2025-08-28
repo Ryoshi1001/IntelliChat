@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import generateTokenSetCookies from "../lib/generateTokenSetCookies.js";
 import User from "../models/userModel.js";
-import cloudinary from "../lib/cloudinaryConnection.js";
+import { v2 as cloudinary } from "cloudinary";
 
 export const signup = async (req, res) => {
   try {
@@ -99,7 +99,7 @@ export const login = async (req, res) => {
     //if password is correct generate new token send success response with token, user, and message
     const token = generateTokenSetCookies(userData._id);
 
-    console.log("login token", token);
+    console.log("login controller function token", token);
 
     res.json({
       success: true,
@@ -138,12 +138,18 @@ export const udpateProfile = async (req, res) => {
     let updatedUser;
 
     // check what user wants to upload, bio or name only; or profileImage also
-    if (!profileImage) {
+    if (!profilePic) {
       updatedUser = await User.findByIdAndUpdate(
         userId,
         { bio, fullName },
         { new: true }
       );
+
+      res.json({
+        success: true,
+        user: updatedUser,
+        message: "Profile updated successfully",
+      });
     } else {
       //import cloudinary: => upload to cloudinary first to get profilePic url
       const upload = await cloudinary.uploader.upload(profilePic);

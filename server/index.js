@@ -1,13 +1,15 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
 import mongoDBConnection from "./db/mongoDBConnection.js";
 import userRouter from "./routes/userRoutes.js";
 import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
 import messageRouter from "./routes/messageRoutes.js";
+import cloudinaryConnection from "./lib/cloudinaryConnection.js";
 
-dotenv.config();
+await cloudinaryConnection(); 
 
 const PORT = process.env.PORT || 3000;
 const app = express();

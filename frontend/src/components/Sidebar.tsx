@@ -2,9 +2,13 @@ import { useNavigate } from "react-router-dom";
 import assets, { userDummyData } from "../assets/assets";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { Search } from "lucide-react";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const Sidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
   const navigate = useNavigate();
+
+  const { logout } = useContext(AuthContext)!; 
 
   return (
     <div className={`
@@ -19,7 +23,7 @@ const Sidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
             <div className="absolute hidden group-hover:block top-full right-2 bgdark py-3 px-4 z-10 rounded-sm">
               <div onClick={() => navigate("/profile")} className="hover:text-[var(--logoblue)] cursor-pointer text-nowrap">Edit Profile</div>
               <hr className="my-1" />
-              <div className="cursor-pointer hover:text-[var(--logoblue)]">Logout</div>
+              <div onClick={() => logout()} className="cursor-pointer hover:text-[var(--logoblue)]">Logout</div>
             </div>
           </div>
         </div>
