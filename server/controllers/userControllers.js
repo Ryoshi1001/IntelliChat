@@ -4,7 +4,6 @@ import User from "../models/userModel.js";
 import cloudinary from "../lib/cloudinaryConnection.js";
 
 export const signup = async (req, res) => {
-  
   try {
     const { fullName, email, password, bio } = req.body;
 
@@ -29,7 +28,7 @@ export const signup = async (req, res) => {
 
     // get User model and check if any user exists with valid email provided:
     const user = await User.findOne({ email });
-
+    console.log("user", user);
     if (user) {
       return res.json({
         success: false,
@@ -37,26 +36,31 @@ export const signup = async (req, res) => {
       });
     }
 
+    console.log(" password", password, email);
+
     //If new user then generate encrypted password: stores hashed password into database not the original user password
     const salt = await bcrypt.genSalt(10);
     console.log("backend salt: ", salt);
     const hashedPassword = await bcrypt.hash(password, salt);
+    console.log("backend pw", hashedPassword);
 
     // create the new user
     const newUser = await User.create({
       fullName,
       email,
-      hashedPassword,
+      password: hashedPassword,
       bio,
     });
 
     // create token to authenticate new user
     const token = generateTokenSetCookies(newUser._id);
 
+    console.log("signuptoken", token);
+
     // send token as a response
     res.json({
       success: true,
-      newUser,
+      userData: newUser,
       token,
       message: `Account created successfully`,
     });
@@ -79,10 +83,10 @@ export const login = async (req, res) => {
 
   try {
     //check and find user with the login email in db
-    const user = await User.findOne({ email });
+    const userData = await User.findOne({ email });
 
     //check password against hashed password
-    const isPasswordValid = await bcrypt.compare(password, user?.password);
+    const isPasswordValid = await bcrypt.compare(password, userData?.password);
 
     //reponse if password is invalid
     if (!isPasswordValid) {
@@ -93,20 +97,22 @@ export const login = async (req, res) => {
     }
 
     //if password is correct generate new token send success response with token, user, and message
-    const token = generateTokenSetCookies(user._id);
+    const token = generateTokenSetCookies(userData._id);
+
+    console.log("login token", token);
 
     res.json({
       success: true,
-      user,
+      userData,
       token,
       message: "Login Successful",
     });
   } catch (error) {
-    console.log("Error in login controller function: ", error.message)
+    console.log("Error in login controller function: ", error.message);
     res.json({
-      success: false, 
-      message: error.message, 
-    })
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -115,48 +121,50 @@ export const login = async (req, res) => {
 export const checkAuth = (req, res) => {
   res.json({
     success: true,
-    user: req.user
-  })
-}
-
+    user: req.user,
+    message: "error in checkAuth controller function",
+  });
+};
 
 //controller function using cloudinary to update profile images
 export const udpateProfile = async (req, res) => {
   try {
-    const {fullName, bio, profilePic} = req.body
+    const { fullName, bio, profilePic } = req.body;
 
-  //add user id get it from the request / middleware req.user
-  const userId = req.user._id; 
-  
-  //let updatedUser to start with empty updateUser
-  let updatedUser; 
+    //add user id get it from the request / middleware req.user
+    const userId = req.user._id;
 
-  // check what user wants to upload, bio or name only; or profileImage also
-  if(!profileImage) {
-    updatedUser = await User.findByIdAndUpdate(userId, {bio, fullName}, {new: true})
-  } else{
-    //import cloudinary: => upload to cloudinary first to get profilePic url
-    const upload = await cloudinary.uploader.upload(profilePic)
+    //let updatedUser to start with empty updateUser
+    let updatedUser;
 
-    updatedUser = await User.findByIdAndUpdate(userId, {profilePic: upload.secure_url, bio, fullName}, {new: true})
-    
-    res.json({
-      success: true, 
-      user: updatedUser, 
-      message: "Profile updated"
-    })
-  } 
-  
+    // check what user wants to upload, bio or name only; or profileImage also
+    if (!profileImage) {
+      updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { bio, fullName },
+        { new: true }
+      );
+    } else {
+      //import cloudinary: => upload to cloudinary first to get profilePic url
+      const upload = await cloudinary.uploader.upload(profilePic);
+
+      updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { profilePic: upload.secure_url, bio, fullName },
+        { new: true }
+      );
+
+      res.json({
+        success: true,
+        user: updatedUser,
+        message: "Profile updated successfully",
+      });
+    }
   } catch (error) {
-    console.log("Error in updateProfile function controller", error.message)
+    console.log("Error in updateProfile function controller", error.message);
     res.json({
-      success: false, 
-      message: error.message
-    })
+      success: false,
+      message: error.message,
+    });
   }
-};
-
-
-export const logout = (req, res) => {
-  res.send("logout");
 };

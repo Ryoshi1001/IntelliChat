@@ -1,24 +1,27 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import RippleGrid from "../components/RippleGrid";
 import { ChevronLeft } from "lucide-react";
-import axios from "axios";
-import toast from "react-hot-toast";
+import { AuthContext } from "../../context/AuthContext";
 
 const Login = () => {
-  const [currState, setCurrState] = useState("Sign Up");
+  const [currState, setCurrState] = useState("Sign up");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState("");
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
 
+  const { login } = useContext(AuthContext)!; 
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    if(currState === "Sign Up" && !isDataSubmitted){
+    if(currState === "Sign up" && !isDataSubmitted){
       setIsDataSubmitted(true)
       return;
     }
+
+    login(currState === "Sign up" ? 'signup' : 'login', {fullName, email, password, bio})
   };
 
   return (
@@ -86,8 +89,8 @@ const Login = () => {
           )}
         </div>
 
-        {/* Progress indicator for sign up */}
-        {/* {currState === "Sign Up" && (
+        {/* Progress indicator for Sign up */}
+        {/* {currState === "Sign up" && (
           <div className="flex gap-2 mb-4">
             <div className={`h-1 flex-1 rounded-full transition-all duration-300 ${!isDataSubmitted ? 'bg-accent' : 'bg-surface-secondary'}`}></div>
             <div className={`h-1 flex-1 rounded-full transition-all duration-300 ${isDataSubmitted ? 'bg-accent' : 'bg-surface-secondary'}`}></div>
@@ -95,7 +98,7 @@ const Login = () => {
         )} */}
 
         {/* Form Fields */}
-        {currState === "Sign Up" && !isDataSubmitted && (
+        {currState === "Sign up" && !isDataSubmitted && (
           <input
             onChange={(e) => setFullName(e.target.value)}
             value={fullName}
@@ -128,7 +131,7 @@ const Login = () => {
           </>
         )}
 
-        {currState === "Sign Up" && isDataSubmitted && (
+        {currState === "Sign up" && isDataSubmitted && (
           <textarea
             onChange={(e) => setBio(e.target.value)}
             value={bio}
@@ -145,7 +148,7 @@ const Login = () => {
           type="submit"
           className="btn-primary py-4 px-6 text-base font-semibold transition-all duration-300 mt-2"
         >
-          {currState === "Sign Up" ? "Create Account" : "Login"}
+          {currState === "Sign up" ? "Create Account" : "Login"}
         </button>
 
         {/* Terms Checkbox */}
@@ -165,7 +168,7 @@ const Login = () => {
 
         {/* Toggle Auth State */}
         <div className="flex items-center justify-center pt-4 border-t border-primary">
-          {currState === "Sign Up" ? (
+          {currState === "Sign up" ? (
             <p className="text-sm text-secondary">
               Already have an account?{" "}
               <span
@@ -182,7 +185,7 @@ const Login = () => {
             <p className="text-sm text-secondary">
               Don't have an account?{" "}
               <span
-                onClick={() => setCurrState("Sign Up")}
+                onClick={() => setCurrState("Sign up")}
                 className="text-accent hover:text-blue-400 cursor-pointer font-medium hover:underline transition-colors duration-200"
               >
                 Create one

@@ -1,18 +1,25 @@
 import { Toaster } from "react-hot-toast";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import Login from "./pages/Login";
 
 const App = () => {
+  const { authUser } = useContext(AuthContext)!; 
+// const context = useContext(AuthContext);
+// if (!context) throw new Error("AuthContext is undefined");
+// const { authUser } = context;
+console.log('app.tsx authUser:', authUser)
   return (
     <div className="gradient1">
       <Toaster />
       <Routes>
         {/* self closing here */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />}/>
-        <Route path="/profile" element={<Profile />}/>
+        <Route path="/" element={authUser ? <Home /> : <Navigate to={"/login"}/>} />
+        <Route path="/login" element={!authUser ? <Login/> : <Navigate to={'/'} />}/>
+        <Route path="/profile" element={authUser ? <Profile /> : <Navigate to={"/login"}/>}/>
       </Routes>
     </div>
   );
