@@ -26,6 +26,7 @@ interface AuthContextType {
   login: (state: string, credentials: any) => Promise<void>;
   logout: () => void;
   updateProfile: (body: any) => Promise<void>;
+  axios: typeof axios; 
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);

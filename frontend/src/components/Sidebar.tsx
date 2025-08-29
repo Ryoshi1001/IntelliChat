@@ -10,6 +10,8 @@ const Sidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
 
   const { logout } = useContext(AuthContext)!; 
 
+  
+
   return (
     <div className={`
      rounded-l-2xl px-4  flex h-full w-full flex-col overflow-hidden  bg-[#8185b2]/10

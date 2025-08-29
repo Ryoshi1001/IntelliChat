@@ -1,0 +1,158 @@
+import { createContext, useContext, useEffect, useState } from "react";
+import { AuthContext } from "./AuthContext";
+import type { Socket } from "socket.io-client";
+import axios from "axios";
+import toast from "react-hot-toast";
+
+// const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+// axios.defaults.baseURL = backendUrl;
+
+interface UserType {
+  _id: string;
+  fullName: string;
+  email: string;
+  profilePic?: string;
+  bio?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+interface MessageType {
+  _id: string;
+  from: UserType;
+  to: UserType;
+  text?: string;
+  image?: string;
+  seen: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface ChatContextType {
+  messages: MessageType[];
+  setMessages: React.Dispatch<React.SetStateAction<MessageType[]>>;
+  users: UserType[];
+  setUsers: React.Dispatch<React.SetStateAction<UserType[]>>;
+  selectedUser: UserType | null;
+  setSelectedUser: React.Dispatch<React.SetStateAction<UserType | null>>;
+  unseenMessages: Record<string, number>;
+  setUnseenMessages: React.Dispatch<
+    React.SetStateAction<Record<string, number>>
+  >;
+  socket: Socket | null;
+  axios: typeof axios;
+}
+
+export const ChatContext = createContext<ChatContextType | null>(null);
+
+export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
+  // state chat variables for app
+
+  // list of users for left sidebar
+  const [users, setUsers] = useState<UserType[]>([]);
+
+  //messages from selected user
+  const [messages, setMessages] = useState<MessageType[]>([]);
+
+  // store id of user that is selected to chat with
+  const [selectedUser, setSelectedUser] = useState<UserType | null>(null);
+
+  // for unseen messages: user id and number of unseen messages: key: userid value: number of unseen messages
+  const [unseenMessages, setUnseenMessages] = useState<Record<string, number>>(
+    {}
+  );
+
+  // import socket and axios created in AuthContext
+  const { axios, socket } = useContext(AuthContext)!;
+
+  // chat functions for app
+  // get all users for side bar and number of unseen messages for logged in user
+  const getUsersForSideBar = async () => {
+    try {
+      const { data } = await axios.get("/api/messages/get-users");
+
+      if (data.success) {
+        setUsers(data.users);
+        setUnseenMessages(data.unseenMessages);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  // get all messages for logged in user from selected user on sidebar
+  const getMessages = async (userId) => {
+    try {
+      const { data } = await axios.get(
+        `/api/messages/selected-user-messages/${userId}`
+      );
+      if (data.success) {
+        setMessages(data.messages);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  // send message to selected user
+  const sendMessage = async (messageData) => {
+    try {
+      const { data } = await axios.post<{
+        success: boolean;
+        newMessage: MessageType;
+      }>(`/api/messages/send-message/${selectedUser?._id}`, messageData);
+      if (data.success) {
+        setMessages((prevMessages) => [...prevMessages, data.newMessage]);
+      } else {
+        toast.error(error.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  // function to subscribe to messages for selected user to messages in real time/ socket.io
+  const subscribeToMessages = async () => {
+    // if socket is not connected
+    if(!socket) return; 
+
+    socket.on("newMessage", (newMessage) => {
+      if(selectedUser && newMessage.senderId === selectedUser._id){
+        newMessage.seen = true;
+        setMessages((prevMessages) => [...prevMessages, newMessage])
+        axios.put(`/api/messages/mark-message-seen/${newMessage._id}`)
+       } else {
+        // if new message emits but user sender is not selectedUser id
+        setUnseenMessages((previousUnseenMessages) => ({
+          ...previousUnseenMessages, [newMessage.senderId] : previousUnseenMessages[newMessage.senderId] ? previousUnseenMessages[newMessage.senderId] + 1 : 1
+        }))
+       }
+    })
+  }
+
+  // function to unsubscribe from messages
+  const unsubscribeFromMessages = () => {
+    if(socket) socket.off("newMessage")
+  }
+
+  // on page load run subscribeToMessages and unsubscribeFromMessages
+  useEffect(() => {
+    subscribeToMessages(); 
+    return () => unsubscribeFromMessages()
+  }, [socket, selectedUser])
+ 
+  const value = {
+    messages, 
+    users, 
+    selectedUser, 
+    getUsersForSideBar, 
+    getMessages, 
+    sendMessage, 
+    setSelectedUser, 
+    setUnseenMessages, 
+    unseenMessages,
+  };
+
+  return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
+};
