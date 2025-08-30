@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import assets from "../assets/assets";
 import { HiDotsHorizontal } from "react-icons/hi";
-import { Search, SpaceIcon } from "lucide-react";
+import { Search } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";

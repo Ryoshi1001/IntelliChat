@@ -13,7 +13,7 @@ const Login = () => {
 
   const { login } = useContext(AuthContext)!; 
 
-  const onSubmitHandler = async (e) => {
+  const onSubmitHandler = async (e: any) => {
     e.preventDefault();
 
     if(currState === "Sign up" && !isDataSubmitted){

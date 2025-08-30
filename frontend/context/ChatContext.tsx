@@ -77,7 +77,7 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
         setUsers(data.users);
         setUnseenMessages(data.unseenMessages);
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message);
     }
   };
@@ -91,13 +91,13 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
       if (data.success) {
         setMessages(data.messages);
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message);
     }
   };
 
   // send message to selected user
-  const sendMessage = async (messageData) => {
+  const sendMessage = async (messageData: any) => {
     try {
       const { data } = await axios.post<{
         success: boolean;
@@ -143,7 +143,7 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
     return () => unsubscribeFromMessages()
   }, [socket, selectedUser])
  
-  const value = {
+  const value: any = {
     messages, 
     users, 
     selectedUser, 

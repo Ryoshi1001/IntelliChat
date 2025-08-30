@@ -1,5 +1,5 @@
 import { ArrowRight, Image, Info } from "lucide-react";
-import assets, { messagesDummyData } from "../assets/assets";
+import assets from "../assets/assets";
 import formatTime from "../lib/formatTime";
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaLocationArrow } from "react-icons/fa";
@@ -29,7 +29,7 @@ const ChatArea = () => {
   }, [messages]);
 
   // handle send message 
-  const handleSendMessage = async (e)=> {
+  const handleSendMessage = async (e: any)=> {
     e.preventDefault()
     if(input.trim() === "") return null; 
     // trim clear space before or after text
@@ -38,7 +38,7 @@ const ChatArea = () => {
   }
 
   // function for sending image in chat
-  const handleSendImage = async (e) => {
+  const handleSendImage = async (e: any) => {
     const file = e.target.files[0]; 
     console.log("file inm handlesendimage chatarea: ", file)
     if(!file || !file.type.startsWith("image/")){
@@ -97,7 +97,7 @@ const ChatArea = () => {
                 className={`
                 p-2 bggray textlight font-light rounded-lg mb-8 md:text-sm break-all max-w-[200px]
                 ${
-                  msg.senderId === authUser._id
+                  msg.senderId === authUser?._id
                     ? "rounded-br-none"
                     : "rounded-bl-none"
                 }
@@ -109,8 +109,8 @@ const ChatArea = () => {
             <div className="text-xs text-center">
               <img
                 src={
-                  msg.senderId === authUser._id
-                    ? authUser.profilePic || assets.avatar_icon
+                  msg.senderId === authUser?._id
+                    ? authUser?.profilePic || assets.avatar_icon
                     : selectedUser?.profilePic || assets.avatar_icon
                 }
                 alt="avatar icon"
