@@ -9,7 +9,7 @@ import { Server } from "socket.io";
 import messageRouter from "./routes/messageRoutes.js";
 import cloudinaryConnection from "./lib/cloudinaryConnection.js";
 
-await cloudinaryConnection(); 
+await cloudinaryConnection();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -63,21 +63,15 @@ app.use("/api/messages", messageRouter);
 
 await mongoDBConnection();
 
+const startServer = async () => {
+  try {
+    await mongoDBConnection();
+    server.listen(PORT, () => {
+      console.log(`Server Running on Port: ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error Connecting To DB: startServer(): ", error.message);
+  }
+};
 
-if(process.env.NODE_ENV !== 'production'){
-  const startServer = async () => {
-    try {
-      await mongoDBConnection();
-      server.listen(PORT, () => {
-        console.log(`Server Running on Port: ${PORT}`);
-      });
-    } catch (error) {
-      console.error("Error Connecting To DB: startServer(): ", error.message);
-    }
-  };
-  
-  startServer();
-}
-
-// export server for vercel deployment
-export default server; 
+startServer();
