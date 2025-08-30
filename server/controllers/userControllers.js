@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import generateTokenSetCookies from "../lib/generateTokenSetCookies.js";
-import User from "../models/userModel.js";
 import { v2 as cloudinary } from "cloudinary";
+import User from "../models/userModel.js";
 
 export const signup = async (req, res) => {
   try {
