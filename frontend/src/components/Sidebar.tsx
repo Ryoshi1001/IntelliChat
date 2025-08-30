@@ -1,17 +1,23 @@
 import { useNavigate } from "react-router-dom";
-import assets, { userDummyData } from "../assets/assets";
+import assets from "../assets/assets";
 import { HiDotsHorizontal } from "react-icons/hi";
-import { Search } from "lucide-react";
-import { useContext } from "react";
+import { Search, SpaceIcon } from "lucide-react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { ChatContext } from "../../context/ChatContext";
 
-const Sidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
+const Sidebar = () => {
   const navigate = useNavigate();
+  const [input, setInput] = useState('')
 
-  const { logout } = useContext(AuthContext)!; 
+  const { getUsersForSideBar, users, selectedUser, setSelectedUser, unseenMessages, setUnseenMessages } = useContext(ChatContext)!; 
+  const { logout, onlineUsers } = useContext(AuthContext)!; 
 
-  
+  const filteredUsers = input ? users.filter((user) => user.fullName.toLowerCase().includes(input.toLowerCase())) : users; 
 
+  useEffect(() => {
+    getUsersForSideBar()
+  }, [onlineUsers])
   return (
     <div className={`
      rounded-l-2xl px-4  flex h-full w-full flex-col overflow-hidden  bg-[#8185b2]/10
@@ -33,14 +39,16 @@ const Sidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
 
       <div className="flex flex-shrink-0 flex-row gap-2 bggray text-[#fff] rounded-full px-2 py-1">
         <Search className="w-7 h-7" />
-        <input placeholder="Search here" type="text" className="flex-1 outline-none placeholder:text-[var(--textlight)]" />
+        <input
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Search here" type="text" className="flex-1 outline-none placeholder:text-[var(--textlight)]" />
       </div>
 
       <div className="flex-1 overflow-y-auto flex flex-col gap-3 pb-96 my-4">
-        {userDummyData.map((user, index) => (
+        {filteredUsers.map((user, index) => (
           <div
             key={index}
-            onClick={() => setSelectedUser(user)}
+            onClick={() => {setSelectedUser(user); setUnseenMessages((prev) => ({...prev, [user._id] : 0}))}}
             className={`flex flex-row p-2 pl-4 items-center justify-between cursor-pointer rounded
               ${selectedUser?._id === user._id ? "bglight" : ""}
             `}
@@ -49,14 +57,16 @@ const Sidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
               <img src={user?.profilePic} alt="profile image" className="w-10 h-10 rounded-full" />
               <div className="flex flex-col">
                 <span>{user?.fullName || assets.avatar_icon}</span>
-                {index < 3 ? (
+                {onlineUsers.includes(user._id) ? (
                   <span className="text-sm text-green-400">Online</span>
                 ) : (
                   <span className="text-sm textgray">Offline</span>
                 )}
               </div>
             </div>
-            <div className="bgblue p-3 rounded-full w-5 h-5 flex items-center justify-center textlight">{index}</div>
+            <div className="bgblue p-3 rounded-full w-5 h-5 flex items-center justify-center textlight">
+              {unseenMessages[user._id] > 0 && <span className="text-red-50">{unseenMessages[user._id]}</span>}
+            </div>
           </div>
         ))}
       </div>

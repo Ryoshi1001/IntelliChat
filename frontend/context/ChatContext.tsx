@@ -20,8 +20,8 @@ interface UserType {
 
 interface MessageType {
   _id: string;
-  from: UserType;
-  to: UserType;
+  senderId: string | undefined;
+  recieverId: string | undefined;
   text?: string;
   image?: string;
   seen: boolean;
@@ -37,9 +37,10 @@ interface ChatContextType {
   selectedUser: UserType | null;
   setSelectedUser: React.Dispatch<React.SetStateAction<UserType | null>>;
   unseenMessages: Record<string, number>;
-  setUnseenMessages: React.Dispatch<
-    React.SetStateAction<Record<string, number>>
-  >;
+  setUnseenMessages: React.Dispatch<React.SetStateAction<Record<string, number>>>;
+  getUsersForSideBar: () => Promise<void>; 
+  getMessages: (userId: any) => Promise<void>; 
+  sendMessage:  (messageData: any) => Promise<void>; 
   socket: Socket | null;
   axios: typeof axios;
 }
@@ -82,7 +83,7 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   // get all messages for logged in user from selected user on sidebar
-  const getMessages = async (userId) => {
+  const getMessages = async (userId: any) => {
     try {
       const { data } = await axios.get(
         `/api/messages/selected-user-messages/${userId}`
@@ -105,10 +106,10 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
       if (data.success) {
         setMessages((prevMessages) => [...prevMessages, data.newMessage]);
       } else {
-        toast.error(error.message);
+        toast.error('toast error');
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error('toast error in sendmessage context');
     }
   };
 

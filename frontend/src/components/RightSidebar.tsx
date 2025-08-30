@@ -1,6 +1,21 @@
+import { useContext, useEffect, useState } from "react";
 import assets, { imagesDummyData } from "../assets/assets";
+import { ChatContext } from "../../context/ChatContext";
+import { AuthContext } from "../../context/AuthContext";
 
-const RightSidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
+const RightSidebar = () => {
+  const { selectedUser, messages } = useContext(ChatContext)!; 
+  const { logout, onlineUsers } = useContext(AuthContext)!; 
+  const [messageImages, setMessageImages] = useState([])
+
+  // Get images from the messages (ChatContext) set them to state (messageImages)
+  useEffect(() => {
+    setMessageImages(
+      messages.filter((message) => message.image).map((messsage) =>  messsage.image)
+    )
+  }, [messages])
+
+
   return (
     selectedUser && (
       <div
@@ -16,7 +31,7 @@ const RightSidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
             className="max-w-20 rounded-full object-cover aspect-[1/1]"
           />
           <div className="flex gap-3 items-center">
-            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+            {onlineUsers.includes(selectedUser._id) && <div className="w-2 h-2 bg-green-400 rounded-full"></div>}
             <p>{selectedUser.fullName}</p>
           </div>
           <div className="px-10 text-center text-xs">{selectedUser.bio}</div>
@@ -29,7 +44,7 @@ const RightSidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
         <div className="px-4 mb-1 text-xs flex-1 h-full overflow-hidden">
           <p className="font-bold">Media</p>
           <div className="grid pb-14 min-h-full grid-cols-2 overflow-y-scroll max-h-[200px] mt-2 gap-4 opacity-80">
-            {imagesDummyData.map((img, index) => (
+            {messageImages.map((img, index) => (
               <div
                 key={index}
                 onClick={() => window.open(img)}
@@ -43,7 +58,9 @@ const RightSidebar = ({ selectedUser, setSelectedUser }: SidebarProps) => {
 
         {/* logout */}
         <div className="flex items-center pb-4">
-        <button className="bgblue w-[90%] mx-auto opacity-80 py-2 px-8 rounded-full text-[#fff] font-semibold cursor-pointer">
+        <button 
+        onClick={() => logout()}
+        className="bgblue w-[90%] mx-auto opacity-80 py-2 px-8 rounded-full text-[#fff] font-semibold cursor-pointer">
           Logout
         </button>          
         </div>

@@ -1,4 +1,4 @@
-import cloudinary from "../lib/cloudinaryConnection.js";
+import { v2 as cloudinary } from "cloudinary";
 import Message from "../models/messageModel.js"; // adjust path as needed
 import User from "../models/userModel.js";
 import { io, userSocketMap } from "../index.js";

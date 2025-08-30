@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext } from "react";
 import RightSidebar from "../components/RightSidebar";
 import SideBar from "../components/Sidebar";
 import ChatArea from "../components/ChatArea";
+import { ChatContext } from "../../context/ChatContext";
 
 const Home = () => {
-  const [selectedUser, setSelectedUser] = useState<>(null);
+  const {selectedUser} = useContext(ChatContext)!;
 
   return (
     <div className="min-h-screen bg-primary relative overflow-hidden">
@@ -32,14 +33,14 @@ const Home = () => {
           <div className="relative bg-surface-primary/50 backdrop-blur-md border-r border-primary overflow-hidden">
             {/* Sidebar header glow */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent"></div>
-            <SideBar selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+            <SideBar />
           </div>
 
           {/* Center - Chat Area */}
           <div className="relative bg-secondary/30 backdrop-blur-sm overflow-hidden flex flex-col">
             {/* Chat header glow */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
-            <ChatArea selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+            <ChatArea />
             
             {/* Chat area bottom accent */}
             <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/10 to-transparent"></div>
@@ -50,7 +51,7 @@ const Home = () => {
             <div className="relative bg-surface-primary/50 backdrop-blur-md border-l border-primary overflow-hidden slide-up">
               {/* Right sidebar header glow */}
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent"></div>
-              <RightSidebar selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+              <RightSidebar />
             </div>
           )}
         </div>
