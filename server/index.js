@@ -61,15 +61,23 @@ app.use("/api/status", (req, res) =>
 app.use("/api/auth", userRouter);
 app.use("/api/messages", messageRouter);
 
-const startServer = async () => {
-  try {
-    await mongoDBConnection();
-    server.listen(PORT, () => {
-      console.log(`Server Running on Port: ${PORT}`);
-    });
-  } catch (error) {
-    console.error("Error Connecting To DB: startServer(): ", error.message);
-  }
-};
+await mongoDBConnection();
 
-startServer();
+
+if(process.env.NODE_ENV !== 'production'){
+  const startServer = async () => {
+    try {
+      await mongoDBConnection();
+      server.listen(PORT, () => {
+        console.log(`Server Running on Port: ${PORT}`);
+      });
+    } catch (error) {
+      console.error("Error Connecting To DB: startServer(): ", error.message);
+    }
+  };
+  
+  startServer();
+}
+
+// export server for vercel deployment
+export default server; 
