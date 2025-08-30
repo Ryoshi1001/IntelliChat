@@ -80,4 +80,4 @@ if(process.env.NODE_ENV !== 'production'){
 }
 
 // export server for vercel deployment
-export default app; 
+export default server; 
