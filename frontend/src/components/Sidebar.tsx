@@ -11,7 +11,7 @@ const Sidebar = () => {
   const [input, setInput] = useState('')
 
   const { getUsersForSideBar, users, selectedUser, setSelectedUser, unseenMessages, setUnseenMessages } = useContext(ChatContext)!; 
-  const { logout, onlineUsers } = useContext(AuthContext)!; 
+  const { logout, onlineUsers, authUser } = useContext(AuthContext)!; 
 
   const filteredUsers = input ? users.filter((user) => user.fullName.toLowerCase().includes(input.toLowerCase())) : users; 
 
@@ -25,7 +25,9 @@ const Sidebar = () => {
     `}>
       <div className="pb-2 flex-shrink-0">
         <div className="flex flex-row items-start justify-between">
-          <img src={assets.logo} alt="logo" className="max-w-24" />
+          <div className="flex flex-col gap-1 ">
+          <img src={authUser?.profilePic || "/logo.png"} alt="logo" className="aspect-square max-w-18 bg-[#fff] rounded-full mt-2 mb-4" />
+          </div>
           <div className="relative text-[#fff] pt-3 group">
             <HiDotsHorizontal className="w-8 h-8 cursor-pointer text-[var(--textgray)] mr-3 hover:text-[var(--textdark)]" />
             <div className="absolute hidden group-hover:block top-full right-2 bgdark py-3 px-4 z-10 rounded-sm">
@@ -54,7 +56,7 @@ const Sidebar = () => {
             `}
           >
             <div className="flex items-center gap-3">
-              <img src={user?.profilePic} alt="profile image" className="w-10 h-10 rounded-full" />
+              <img src={user?.profilePic || assets.avatar_icon} alt="profile image" className="w-10 h-10 rounded-full" />
               <div className="flex flex-col">
                 <span>{user?.fullName || assets.avatar_icon}</span>
                 {onlineUsers.includes(user._id) ? (

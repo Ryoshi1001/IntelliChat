@@ -134,6 +134,7 @@
     color: var(--text-primary);
   }
 
+
   .glass-input:focus {
     background: rgba(255, 255, 255, 0.12);
     border-color: var(--accent-primary);

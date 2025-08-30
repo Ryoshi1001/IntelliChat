@@ -4,17 +4,18 @@ import { ChatContext } from "../../context/ChatContext";
 import { AuthContext } from "../../context/AuthContext";
 
 const RightSidebar = () => {
-  const { selectedUser, messages } = useContext(ChatContext)!; 
-  const { logout, onlineUsers } = useContext(AuthContext)!; 
+  const { selectedUser, messages } = useContext(ChatContext)!;
+  const { logout, onlineUsers } = useContext(AuthContext)!;
   const [messageImages, setMessageImages] = useState<string[]>([]);
 
   // Get images from the messages (ChatContext) set them to state (messageImages)
   useEffect(() => {
     setMessageImages(
-      messages.filter((message) => message.image).map((messsage) =>  messsage.image as string)
-    )
-  }, [messages])
-
+      messages
+        .filter((message) => message.image)
+        .map((messsage) => messsage.image as string)
+    );
+  }, [messages]);
 
   return (
     selectedUser && (
@@ -31,7 +32,9 @@ const RightSidebar = () => {
             className="max-w-20 rounded-full object-cover aspect-[1/1]"
           />
           <div className="flex gap-3 items-center">
-            {onlineUsers.includes(selectedUser._id) && <div className="w-2 h-2 bg-green-400 rounded-full"></div>}
+            {onlineUsers.includes(selectedUser._id) && (
+              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+            )}
             <p>{selectedUser.fullName}</p>
           </div>
           <div className="px-10 text-center text-xs">{selectedUser.bio}</div>
@@ -50,7 +53,7 @@ const RightSidebar = () => {
                 onClick={() => window.open(img)}
                 className="cursor-pointer rounded-md"
               >
-                <img src={img} alt="img" className="h-full rounded-md" />
+                <img src={img} alt="img" className=" rounded-md" />
               </div>
             ))}
           </div>
@@ -58,13 +61,13 @@ const RightSidebar = () => {
 
         {/* logout */}
         <div className="flex items-center pb-4">
-        <button 
-        onClick={() => logout()}
-        className="bgblue w-[90%] mx-auto opacity-80 py-2 px-8 rounded-full text-[#fff] font-semibold cursor-pointer">
-          Logout
-        </button>          
+          <button
+            onClick={() => logout()}
+            className="bgblue w-[90%] mx-auto opacity-80 py-2 px-8 rounded-full text-[#fff] font-semibold cursor-pointer"
+          >
+            Logout
+          </button>
         </div>
-
       </div>
     )
   );
