@@ -96,7 +96,7 @@ const Profile = () => {
 
           <div className="flex-1 h-full flex items-center justify-center">
             <img
-              src={authUser?.profilePic || "/logo.png"}
+              src={authUser?.profilePic || "/logo.svg"}
               alt=""
               className={`max-w-44 h-auto rounded-full sm:ml-8 aspect-square ${
                 authUser?.profilePic ? "bg-[#fff]" : ""

@@ -1,4 +1,4 @@
-import { ArrowRight, Image, Info } from "lucide-react";
+import { ArrowRight, Image, Info, Send } from "lucide-react";
 import assets from "../assets/assets";
 import formatTime from "../lib/formatTime";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -85,7 +85,12 @@ ${sentTexts}
   // handle send message
   const handleSendMessage = async (e: any) => {
     e.preventDefault();
-    if (input.trim() === "") return null;
+    if (input.trim() === "") {
+      toast.error("Enter message", {
+        position: "bottom-center",
+      });
+      return null;
+    }
     // trim clear space before or after text
     await sendMessage({ text: input.trim() });
     setInput("");
@@ -127,19 +132,19 @@ ${sentTexts}
   };
 
   return selectedUser ? (
-    <div className="flex flex-col w-full h-full p-4 overflow-scroll relative backdrop-blur-lg">
+    <div className="flex flex-col w-full h-full p-4 max-sm:p-2 overflow-scroll relative backdrop-blur-lg">
       <button
         onClick={() => {
           handleGenerateMessage();
           setShowModal(true);
         }}
         type="submit"
-        className="btn-primary mb-3 py-2! px-6 text-base font-semibold transition-all duration-300 rounded-full flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-[0.95] focus:outline-none focus:ring-4 focus:ring-accent-primary"
+        className="btn-primary slideup mb-3 py-1! px-6 text-base font-semibold transition-all duration-300 rounded-full flex items-center justify-center gap-2 max-sm:gap-4 shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-[0.95] focus:outline-none focus:ring-4 focus:ring-accent-primary"
       >
         <img
-          src="/logo.png"
+          src="/logo.svg"
           alt="AI Chat Logo"
-          className="w-14 h-auto opacity-90 drop-shadow-2xl"
+          className="w-16 max-sm:w-10 h-auto drop-shadow-2xl glow"
         />
         Chat Assist
       </button>
@@ -220,30 +225,33 @@ ${sentTexts}
       </div>
 
       {/* create message */}
-      <div className="flex flex-row items-center justify-between gap-3 mt-1">
-        <div className="flex bggray items-center rounded-full w-full textlight py-3 px-5">
-          <input
-            onChange={(e) => setInput(e.target.value)}
-            value={input}
-            onKeyDown={(e) => (e.key === "Enter" ? handleSendMessage(e) : null)}
-            type="text"
-            placeholder="Send a message"
-            className="flex-1 outline-none placeholder:text-[var(--textblue)]"
-          />
-          <input
-            onChange={handleSendImage}
-            type="file"
-            id="image"
-            accept="image/png, image/jpg"
-            hidden
-          />
-          <label htmlFor="image">
-            <Image className=" max-w-7 cursor-pointer textlight" />
-          </label>
-        </div>
-        <div onClick={handleSendMessage} className="bgblue p-2 rounded-full">
-          <FaLocationArrow className="w-5 h-5 textlight cursor-pointer" />
-        </div>
+      <div className="flex flex-wrap mt-1 gap-2 bggray items-center rounded-full w-full textlight py-3 px-5">
+        <textarea
+          onChange={(e) => setInput(e.target.value)}
+          value={input}
+          rows={1}
+          onKeyDown={(e) => (e.key === "Enter" ? handleSendMessage(e) : null)}
+          placeholder="Send a message"
+          className="flex-grow text-wrap  max-w-full p-1 outline-none placeholder:text-[var(--textblue)]"
+        />
+        <input
+          onChange={handleSendImage}
+          type="file"
+          id="image"
+          accept="image/png, image/jpg"
+          hidden
+        />
+        <label htmlFor="image" className="mx-auto">
+          <Image className="w-8 h-8 cursor-pointer textlight" />
+        </label>
+
+        <button
+          type="button"
+          onClick={handleSendMessage}
+          className="bgblue cursor-pointer rounded-full flex p-3 max-sm:p-2 items-center w-full lg:w-auto"
+        >
+          <Send className="w-5 h-5 textlight cursor-pointer mx-auto" />
+        </button>
       </div>
     </div>
   ) : (

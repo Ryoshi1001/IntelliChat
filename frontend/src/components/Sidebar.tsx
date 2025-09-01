@@ -26,7 +26,7 @@ const Sidebar = () => {
       <div className="pb-2 flex-shrink-0">
         <div className="flex flex-row items-start justify-between">
           <div className="flex flex-col gap-1 ">
-          <img src={authUser?.profilePic || "/logo.png"} alt="logo" className="aspect-square max-w-18 bg-[#fff] rounded-full mt-2 mb-4" />
+          <img src={authUser?.profilePic || "/logo.svg"} alt="logo" className="aspect-square max-w-18 bg-[#fff] rounded-full mt-2 mb-4" />
           </div>
           <div className="relative text-[#fff] pt-3 group">
             <HiDotsHorizontal className="w-8 h-8 cursor-pointer text-[var(--textgray)] mr-3 hover:text-[var(--textdark)]" />

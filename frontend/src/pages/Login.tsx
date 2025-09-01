@@ -11,17 +11,22 @@ const Login = () => {
   const [bio, setBio] = useState("");
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
 
-  const { login } = useContext(AuthContext)!; 
+  const { login } = useContext(AuthContext)!;
 
   const onSubmitHandler = async (e: any) => {
     e.preventDefault();
 
-    if(currState === "Sign up" && !isDataSubmitted){
-      setIsDataSubmitted(true)
+    if (currState === "Sign up" && !isDataSubmitted) {
+      setIsDataSubmitted(true);
       return;
     }
 
-    login(currState === "Sign up" ? 'signup' : 'login', {fullName, email, password, bio})
+    login(currState === "Sign up" ? "signup" : "login", {
+      fullName,
+      email,
+      password,
+      bio,
+    });
   };
 
   return (
@@ -30,15 +35,21 @@ const Login = () => {
       <div className="absolute inset-0 pointer-events-none">
         {/* Animated background gradients */}
         <div className="absolute top-20 left-1/4 w-64 h-64 bg-gradient-to-br from-blue-500/20 via-cyan-400/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-1/4 w-80 h-80 bg-gradient-to-tl from-indigo-500/15 via-blue-600/8 to-transparent rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div
+          className="absolute bottom-20 right-1/4 w-80 h-80 bg-gradient-to-tl from-indigo-500/15 via-blue-600/8 to-transparent rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        ></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-blue-600/5 via-cyan-500/5 to-indigo-600/5 rounded-full blur-3xl"></div>
       </div>
 
       {/* Logo background overlay */}
-      <div className="absolute opacity-5 z-0 inset-0 bg-[url('/logo.png')] bg-no-repeat bg-center bg-contain"></div>
+      <div className="absolute opacity-5 z-0 inset-0 bg-[url('/logo.svg')] bg-no-repeat bg-center bg-contain"></div>
 
       {/* Enhanced Ripple Grid */}
-      <div className="absolute inset-0 z-10" style={{ height: "100vh", overflow: "hidden" }}>
+      <div
+        className="absolute inset-0 z-10"
+        style={{ height: "100vh", overflow: "hidden" }}
+      >
         <RippleGrid
           enableRainbow={false}
           gridColor="rgba(20, 114, 192, 0.4)"
@@ -56,26 +67,29 @@ const Login = () => {
         <div className="relative">
           {/* Glow effect behind logo */}
           <div className="absolute inset-0 bg-gradient-primary opacity-20 blur-2xl rounded-full transform scale-110"></div>
-          <img 
-            src="/logo.png" 
-            alt="AI Chat Logo" 
-            className="relative max-w-[280px] opacity-90 filter drop-shadow-2xl hover:scale-105 transition-transform duration-500 ease-out" 
+          <img
+            src="/logo.svg"
+            alt="AI Chat Logo"
+            className="relative max-w-[280px] opacity-90 filter drop-shadow-2xl hover:scale-105 transition-transform duration-500 ease-out"
           />
         </div>
-        
+
         {/* Welcome text */}
         <div className="mt-6 text-center fade-in">
           <h1 className="text-2xl font-bold text-primary bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-            Welcome to Intelli Chat
+            Welcome to IntelliChat with Chat Assist *
           </h1>
           <p className="max-sm:text-[#fff]! text-tertiary mt-2 text-sm">
-            Connect, create, and collaborate with AI
+            Connect and communicate seemlessly with AI
           </p>
         </div>
       </div>
 
       {/* Enhanced Form Container */}
-      <form onSubmit={onSubmitHandler} className="relative z-20 flex flex-col gap-5 glass-card p-8 w-full max-w-md mx-4 transition-all duration-500 hover:glass-card-hover slide-up">
+      <form
+        onSubmit={onSubmitHandler}
+        className="relative z-20 flex flex-col gap-5 glass-card p-8 w-full max-w-md mx-4 transition-all duration-500 hover:glass-card-hover slide-up"
+      >
         {/* Form Header */}
         <div className="flex items-center justify-between mb-2">
           <h2 className="text-xl font-bold text-primary bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
@@ -92,8 +106,16 @@ const Login = () => {
         {/* Progress indicator for Sign up */}
         {currState === "Sign up" && (
           <div className="flex gap-2 mb-4">
-            <div className={`h-1 flex-1 rounded-full transition-all duration-300 ${!isDataSubmitted ? 'surface-primary' : 'bg-[#fff]'}`}></div>
-            <div className={`h-1 flex-1 rounded-full transition-all duration-300 ${isDataSubmitted ? 'surface-primary' : 'surface-primary'}`}></div>
+            <div
+              className={`h-1 flex-1 rounded-full transition-all duration-300 ${
+                !isDataSubmitted ? "surface-primary" : "bg-[#fff]"
+              }`}
+            ></div>
+            <div
+              className={`h-1 flex-1 rounded-full transition-all duration-300 ${
+                isDataSubmitted ? "surface-primary" : "surface-primary"
+              }`}
+            ></div>
           </div>
         )}
 
@@ -153,16 +175,20 @@ const Login = () => {
 
         {/* Terms Checkbox */}
         <div className="flex items-start gap-3 mt-2">
-          <input 
-            type="checkbox" 
-            required 
+          <input
+            type="checkbox"
+            required
             className="mt-1 w-4 h-4 text-accent bg-surface-primary border-primary rounded focus:ring-accent focus:ring-2"
           />
           <p className="text-xs text-tertiary leading-relaxed">
             I agree to the{" "}
-            <span className="text-accent hover:underline cursor-pointer">Terms of Service</span>
-            {" "}and{" "}
-            <span className="text-accent hover:underline cursor-pointer">Privacy Policy</span>
+            <span className="text-accent hover:underline cursor-pointer">
+              Terms of Service
+            </span>{" "}
+            and{" "}
+            <span className="text-accent hover:underline cursor-pointer">
+              Privacy Policy
+            </span>
           </p>
         </div>
 
@@ -199,4 +225,3 @@ const Login = () => {
 };
 
 export default Login;
-

@@ -50,7 +50,7 @@ const Home = () => {
           className={`grid grid-cols-1 w-full max-w-7xl h-full chat-container overflow-hidden relative rounded-2xl shadow-2xl backdrop-blur-sm transition-all duration-500 ease-out
             ${
               selectedUser
-                ? "md:grid-cols-[300px_1fr_280px] xl:grid-cols-[320px_1fr_300px]"
+                ? "md:grid-cols-[1fr_1fr_1fr] lg:grid-cols-[300px_1fr_280px] xl:grid-cols-[320px_1fr_300px]"
                 : "md:grid-cols-[300px_1fr] xl:grid-cols-[320px_1fr]"
             }`}
         >
@@ -129,21 +129,37 @@ const Home = () => {
             </div>
           </div>
 
-          <button className="glass-card p-3 hover:glass-card-hover transition-all duration-300 rounded-full group">
-            <svg
-              className="w-5 h-5 text-accent group-hover:text-blue-400 transition-colors"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </button>
+          <div className="relative text-[#fff] group">
+            <button className="glass-card cursor-pointer p-3 hover:glass-card-hover transition-all duration-300 rounded-full group">
+              <svg
+                className="w-5 h-5 text-accent group-hover:text-blue-400 transition-colors"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </button>
+            <div className="absolute min-w-lg hidden group-hover:block -top-40 right-4 bgdark py-3 px-4 z-10 rounded-sm">
+              <div className="hover:text-[var(--logoblue)] cursor-pointer max-w-lg text-nowrap">
+                <div
+                  className="w-ful
+                text-wrap"
+                >
+                  Intellichat has Chat Assist and to use it click on the blue
+                  button on top of the chat area. It is used to generate a
+                  message for you based off your conversation saving you time
+                  from haveing to type sometimes. Just click the button and
+                  approve the generated message.
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* App version indicator (top right) */}
@@ -153,7 +169,7 @@ const Home = () => {
 
         {/* Logo watermark (top left) */}
         <div className="max-sm:hidden absolute top-6 left-6 opacity-30 hover:opacity-60 transition-opacity duration-300">
-          <img src="/logo.png" alt="Logo" className="w-8 h-8" />
+          <img src="/logo.svg" alt="Logo" className="w-10 h-10" />
         </div>
       </div>
     </div>
