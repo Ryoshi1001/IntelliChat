@@ -2,6 +2,44 @@ import { v2 as cloudinary } from "cloudinary";
 import Message from "../models/messageModel.js"; // adjust path as needed
 import User from "../models/userModel.js";
 import { io, userSocketMap } from "../index.js";
+import  ai  from '../lib/openAiClient.js'
+
+
+// Ai generated message controller function 
+export const generateMessage = async (req, res) => {
+  try {
+    const { prompt } = req.body; 
+
+    const response = await ai.chat.completions.create({
+      model: "gemini-2.0-flash",
+      messages: [
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+      temperature: 0.7,
+      max_tokens: 100,
+    });
+
+    const content = response.choices[0].message.content;
+
+    res.json({
+      success: true,
+      content,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message,
+    });
+    console.log(
+      "Error in generateMessage controller function: ",
+      error.message
+    );
+  }
+};
+
 
 // get all users except logged in user for sidebar and unseen messages for logged in user:
 export const getUsersForSideBar = async (req, res) => {

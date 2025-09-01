@@ -56,7 +56,7 @@ const Sidebar = () => {
             `}
           >
             <div className="flex items-center gap-3">
-              <img src={user?.profilePic || assets.avatar_icon} alt="profile image" className="w-10 h-10 rounded-full" />
+              <img src={user?.profilePic || assets.avatar_icon} alt="profile image" className="w-10 h-10 rounded-full bg-[#fff] border" />
               <div className="flex flex-col">
                 <span>{user?.fullName || assets.avatar_icon}</span>
                 {onlineUsers.includes(user._id) ? (
@@ -67,7 +67,7 @@ const Sidebar = () => {
               </div>
             </div>
             <div className="bgblue p-3 rounded-full w-5 h-5 flex items-center justify-center textlight">
-              {unseenMessages[user._id] > 0 && <span className="text-red-50">{unseenMessages[user._id]}</span>}
+              {unseenMessages[user._id] > 0 && <span className="text-[#fff]">{unseenMessages[user._id]}</span>}
             </div>
           </div>
         ))}

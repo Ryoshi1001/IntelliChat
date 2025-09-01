@@ -13,7 +13,7 @@ const App = () => {
 // const { authUser } = context;
 console.log('app.tsx authUser:', authUser)
   return (
-    <div className="gradient1">
+    <div>
       <Toaster />
       <Routes>
         {/* self closing here */}

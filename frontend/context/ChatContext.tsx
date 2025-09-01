@@ -20,8 +20,8 @@ interface UserType {
 
 interface MessageType {
   _id: string;
-  senderId: string | undefined;
-  recieverId: string | undefined;
+  senderId?: string | undefined;
+  receiverId?: string | undefined;
   text?: string;
   image?: string;
   seen: boolean;
@@ -41,6 +41,9 @@ interface ChatContextType {
   getUsersForSideBar: () => Promise<void>; 
   getMessages: (userId: any) => Promise<void>; 
   sendMessage:  (messageData: any) => Promise<void>; 
+  generateMessage: (prompt: string) => Promise<void>;
+  generatedMessage: String | null; 
+  setGeneratedMessage: React.Dispatch<React.SetStateAction<String | null>>, 
   socket: Socket | null;
   axios: typeof axios;
 }
@@ -64,8 +67,25 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
     {}
   );
 
+  // generated messages
+  const [generatedMessage, setGeneratedMessage] = useState<String>(''); 
+
+
   // import socket and axios created in AuthContext
   const { axios, socket } = useContext(AuthContext)!;
+
+  // function for AI generated messages
+  const generateMessage = async (prompt: string) => {
+    try {
+      const { data } = await axios.post("/api/messages/generate-message", {prompt})
+      if(data.success){
+        setGeneratedMessage(data.content)
+      }
+      toast.success("Message Generated");
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }
 
   // chat functions for app
   // get all users for side bar and number of unseen messages for logged in user
@@ -137,6 +157,7 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
     if(socket) socket.off("newMessage")
   }
 
+
   // on page load run subscribeToMessages and unsubscribeFromMessages
   useEffect(() => {
     subscribeToMessages(); 
@@ -153,6 +174,9 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
     setSelectedUser, 
     setUnseenMessages, 
     unseenMessages,
+    generateMessage, 
+    generatedMessage, 
+    setGeneratedMessage, 
   };
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;

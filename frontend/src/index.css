@@ -29,15 +29,15 @@
 :root {
   /* Primary Brand Colors (from logo) */
   --primary-dark: #051426;
-  --primary-blue: #1F5C9C;
-  --primary-blue-deep: #163B80;
-  --primary-accent: #1472C0;
-  --primary-light: #D1D5D9;
+  --primary-blue: #1f5c9c;
+  --primary-blue-deep: #163b80;
+  --primary-accent: #1472c0;
+  --primary-light: #d1d5d9;
 
   /* Extended Color Palette */
-  --background-primary: #0A0F1A;
+  --background-primary: #0a0f1a;
   --background-secondary: #111827;
-  --background-tertiary: #1F2937;
+  --background-tertiary: #1f2937;
   --background-glass: rgba(31, 92, 156, 0.08);
   --background-glass-hover: rgba(31, 92, 156, 0.12);
 
@@ -48,17 +48,17 @@
   --surface-active: rgba(31, 92, 156, 0.15);
 
   /* Text Colors */
-  --text-primary: #F8FAFC;
-  --text-secondary: #D1D5DB;
-  --text-tertiary: #9CA3AF;
-  --text-muted: #6B7280;
+  --text-primary: #f8fafc;
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+  --text-muted: #6b7280;
 
   /* Accent & Interactive Colors */
-  --accent-primary: #1472C0;
-  --accent-secondary: #1F5C9C;
-  --accent-success: #10B981;
-  --accent-warning: #F59E0B;
-  --accent-error: #EF4444;
+  --accent-primary: #1472c0;
+  --accent-secondary: #1f5c9c;
+  --accent-success: #10b981;
+  --accent-warning: #f59e0b;
+  --accent-error: #ef4444;
 
   /* Border Colors */
   --border-primary: rgba(255, 255, 255, 0.1);
@@ -71,44 +71,95 @@
   --shadow-glass: rgba(0, 0, 0, 0.1);
 
   /* Gradient Definitions */
-  --gradient-primary: linear-gradient(135deg, #1F5C9C 0%, #1472C0 100%);
-  --gradient-secondary: linear-gradient(135deg, #163B80 0%, #1F5C9C 100%);
-  --gradient-accent: linear-gradient(135deg, #1472C0 0%, #10B981 100%);
-  --gradient-background: linear-gradient(135deg, #0A0F1A 0%, #111827 50%, #1F2937 100%);
-  --gradient-glass: linear-gradient(135deg, rgba(31, 92, 156, 0.1) 0%, rgba(20, 114, 192, 0.05) 100%);
+  --gradient-primary: linear-gradient(135deg, #1f5c9c 0%, #1472c0 100%);
+  --gradient-secondary: linear-gradient(135deg, #163b80 0%, #1f5c9c 100%);
+  --gradient-accent: linear-gradient(135deg, #1472c0 0%, #10b981 100%);
+  --gradient-background: linear-gradient(
+    135deg,
+    #0a0f1a 0%,
+    #111827 50%,
+    #1f2937 100%
+  );
+  --gradient-glass: linear-gradient(
+    135deg,
+    rgba(31, 92, 156, 0.1) 0%,
+    rgba(20, 114, 192, 0.05) 100%
+  );
 }
 
 @layer utilities {
   /* Background Utilities */
-  .bg-primary { background-color: var(--background-primary); }
-  .bg-secondary { background-color: var(--background-secondary); }
-  .bg-tertiary { background-color: var(--background-tertiary); }
-  .bg-glass { background-color: var(--background-glass); }
-  
+  .bg-primary {
+    background-color: var(--background-primary);
+  }
+  .bg-secondary {
+    background-color: var(--background-secondary);
+  }
+  .bg-tertiary {
+    background-color: var(--background-tertiary);
+  }
+  .bg-glass {
+    background-color: var(--background-glass);
+  }
+
   /* Surface Utilities */
-  .surface-primary { background-color: var(--surface-primary); }
-  .surface-secondary { background-color: var(--surface-secondary); }
-  .surface-hover { background-color: var(--surface-hover); }
-  .surface-active { background-color: var(--surface-active); }
+  .surface-primary {
+    background-color: var(--surface-primary);
+  }
+  .surface-secondary {
+    background-color: var(--surface-secondary);
+  }
+  .surface-hover {
+    background-color: var(--surface-hover);
+  }
+  .surface-active {
+    background-color: var(--surface-active);
+  }
 
   /* Text Utilities */
-  .text-primary { color: var(--text-primary); }
-  .text-secondary { color: var(--text-secondary); }
-  .text-tertiary { color: var(--text-tertiary); }
-  .text-muted { color: var(--text-muted); }
-  .text-accent { color: var(--accent-primary); }
+  .text-primary {
+    color: var(--text-primary);
+  }
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+  .text-tertiary {
+    color: var(--text-tertiary);
+  }
+  .text-muted {
+    color: var(--text-muted);
+  }
+  .text-accent {
+    color: var(--accent-primary);
+  }
 
   /* Border Utilities */
-  .border-primary { border-color: var(--border-primary); }
-  .border-secondary { border-color: var(--border-secondary); }
-  .border-accent { border-color: var(--border-accent); }
+  .border-primary {
+    border-color: var(--border-primary);
+  }
+  .border-secondary {
+    border-color: var(--border-secondary);
+  }
+  .border-accent {
+    border-color: var(--border-accent);
+  }
 
   /* Gradient Utilities */
-  .gradient-primary { background: var(--gradient-primary); }
-  .gradient-secondary { background: var(--gradient-secondary); }
-  .gradient-accent { background: var(--gradient-accent); }
-  .gradient-background { background: var(--gradient-background); }
-  .gradient-glass { background: var(--gradient-glass); }
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  .gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+  .gradient-background {
+    background: var(--gradient-background);
+  }
+  .gradient-glass {
+    background: var(--gradient-glass);
+  }
 
   /* Glass Morphism Components */
   .glass-card {
@@ -133,7 +184,6 @@
     border: 1px solid rgba(255, 255, 255, 0.12);
     color: var(--text-primary);
   }
-
 
   .glass-input:focus {
     background: rgba(255, 255, 255, 0.12);
@@ -161,7 +211,7 @@
   .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(20, 114, 192, 0.4);
-    background: linear-gradient(135deg, #2563EB 0%, #1472C0 100%);
+    background: linear-gradient(135deg, #2563eb 0%, #1472c0 100%);
   }
 
   .btn-secondary {
@@ -230,19 +280,47 @@
   }
 
   /* Legacy Support (keeping your existing classes) */
-  .gradient1 { background: var(--gradient-primary); }
-  .gradient2 { background: var(--gradient-secondary); }
-  .gradient3 { background: var(--gradient-glass); }
-  
-  .bgdark { background-color: var(--background-primary); }
-  .textdark { color: var(--text-primary); }
-  .bglight { background-color: var(--surface-primary); }
-  .textlight { color: var(--text-primary); }
-  .bggray { background-color: var(--background-tertiary); }
-  .textgray { color: var(--text-muted); }
-  .bgblue { background-color: var(--accent-primary); }
-  .textblue { color: var(--accent-primary); }
-  .borders { border-color: var(--border-primary); }
+  .gradient1 {
+    background: var(--gradient-primary);
+  }
+  .gradient2 {
+    background: var(--gradient-secondary);
+  }
+  .gradient3 {
+    background: var(--gradient-glass);
+  }
+
+  .bgdark {
+    background-color: var(--background-primary);
+  }
+  .textdark {
+    color: var(--text-primary);
+  }
+  .bglight {
+    background-color: var(--surface-primary);
+  }
+  .textlight {
+    color: var(--text-primary);
+  }
+  .bggray {
+    background-color: var(--background-tertiary);
+  }
+  .textgray {
+    color: var(--text-muted);
+  }
+  .bgblue {
+    background-color: var(--primary-blue);
+  }
+  .textblue {
+    color: var(--accent-primary);
+  }
+  .borders {
+    border-color: var(--border-primary);
+  }
+
+  .min-h-screen {
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
 }
 
 * {
@@ -276,18 +354,35 @@ body {
 
 /* Keyframe Animations */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { 
+  from {
     opacity: 0;
     transform: translateY(20px);
   }
-  to { 
+  to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
@@ -298,6 +393,13 @@ body {
     margin: 8px;
   }
 }
+
+@media (max-width: 640px) {
+  .min-h-screen {
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
+}
+
 
 /* Focus and Accessibility */
 *:focus {
@@ -311,9 +413,3 @@ textarea:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(20, 114, 192, 0.2);
 }
-
-
-
-
-
-

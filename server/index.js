@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
+import '../server/lib/envConfig.js'
 import express from "express";
 import mongoDBConnection from "./db/mongoDBConnection.js";
 import userRouter from "./routes/userRoutes.js";
