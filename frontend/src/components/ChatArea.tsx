@@ -2,7 +2,6 @@ import { ArrowRight, Image, Info, Send } from "lucide-react";
 import assets from "../assets/assets";
 import formatTime from "../lib/formatTime";
 import { useContext, useEffect, useRef, useState } from "react";
-import { FaLocationArrow } from "react-icons/fa";
 import { ChatContext } from "../../context/ChatContext";
 import { AuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";

@@ -76,10 +76,10 @@ const Login = () => {
 
         {/* Welcome text */}
         <div className="mt-6 text-center fade-in">
-          <h1 className="text-2xl font-bold text-primary bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+          <h1 className="max-sm:text-[#1472c0]! text-2xl font-bold text-primary bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
             Welcome to IntelliChat with Chat Assist *
           </h1>
-          <p className="max-sm:text-[#fff]! text-tertiary mt-2 text-sm">
+          <p className="max-sm:text-[#1472c0]! text-tertiary mt-2 text-sm">
             Connect and communicate seemlessly with AI
           </p>
         </div>
