@@ -8,9 +8,7 @@ import { Server } from "socket.io";
 import messageRouter from "./routes/messageRoutes.js";
 import cloudinaryConnection from "./lib/cloudinaryConnection.js";
 
-
 await cloudinaryConnection();
-
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -74,16 +72,3 @@ const startServer = async () => {
 };
 
 startServer();
-
-
-
-// In production, serve frontend static files and
-// handle all unmatched routes by serving index.html
-// This enables client-side routing for our SPA
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static(path.join(__dirname, "frontend", "dist")));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-  });
-}
