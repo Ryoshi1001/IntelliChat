@@ -7,7 +7,7 @@ import { AuthContext } from "../context/AuthContext";
 import Login from "./pages/Login";
 
 const App = () => {
-  const { authUser } = useContext(AuthContext)!; 
+const { authUser } = useContext(AuthContext)!; 
 // const context = useContext(AuthContext);
 // if (!context) throw new Error("AuthContext is undefined");
 // const { authUser } = context;
@@ -18,7 +18,7 @@ console.log('app.tsx authUser:', authUser)
       <Routes>
         {/* self closing here */}
         <Route path="/" element={authUser ? <Home /> : <Navigate to={"/login"}/>} />
-        <Route path="/login" element={!authUser ? <Login/> : <Navigate to={'/'} />}/>
+        <Route path="/login" element={authUser ? <Home/> : <Navigate to={'/login'} />}/>
         <Route path="/profile" element={authUser ? <Profile /> : <Navigate to={"/login"}/>}/>
       </Routes>
     </div>
