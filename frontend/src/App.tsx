@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import Login from "./pages/Login";
 
 const App = () => {
 const { authUser } = useContext(AuthContext)!; 
@@ -17,7 +18,7 @@ console.log('app.tsx authUser:', authUser)
       <Routes>
         {/* self closing here */}
         <Route path="/" element={authUser ? <Home /> : <Navigate to={"/login"}/>} />
-        <Route path="/login" element={authUser ? <Home/> : <Navigate to={'/login'} />}/>
+        <Route path="/login" element={!authUser ? <Login/> : <Navigate to={'/'} />}/>
         <Route path="/profile" element={authUser ? <Profile /> : <Navigate to={"/login"}/>}/>
       </Routes>
     </div>

@@ -7,7 +7,6 @@ export const protectRoute = async (req, res, next) => {
   try {
     // need to get token from headers, token sent from frontend headers in every api request
     const token = req.headers.token; 
-    console.log('protectedRoute token', token)
 
     // decode token to get the userId from the token
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
