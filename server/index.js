@@ -8,8 +8,12 @@ import { Server } from "socket.io";
 import messageRouter from "./routes/messageRoutes.js";
 import cloudinaryConnection from "./lib/cloudinaryConnection.js";
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 await cloudinaryConnection();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -71,8 +75,6 @@ if(process.env.NODE_ENV === 'production'){
     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
   });
 }
-
-await mongoDBConnection();
 
 const startServer = async () => {
   try {
