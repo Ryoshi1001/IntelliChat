@@ -50,8 +50,6 @@ const [socket, setSocket] = useState<Socket | null>(null);
       if (data.success) {
         setAuthUser(data.user);
         connectSocket(data.user);
-      } else {
-        setAuthUser(null)
       }
     } catch (error: any) {
       toast.error(error.message);

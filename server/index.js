@@ -7,6 +7,7 @@ import http from "http";
 import { Server } from "socket.io";
 import messageRouter from "./routes/messageRoutes.js";
 import cloudinaryConnection from "./lib/cloudinaryConnection.js";
+import path from 'path';
 
 await cloudinaryConnection();
 
@@ -59,6 +60,14 @@ app.use("/api/status", (req, res) =>
 );
 app.use("/api/auth", userRouter);
 app.use("/api/messages", messageRouter);
+
+// catch all route
+app.use(express.static(path.join(process.cwd(), "dist"))); 
+if(process.env.NODE_ENV === 'production'){
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(process.cwd(), "dist", "index.html"))
+  })
+}
 
 await mongoDBConnection();
 
