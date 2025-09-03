@@ -7,13 +7,10 @@ import http from "http";
 import { Server } from "socket.io";
 import messageRouter from "./routes/messageRoutes.js";
 import cloudinaryConnection from "./lib/cloudinaryConnection.js";
-import path from 'path';
-import { fileURLToPath } from 'url';
+
 
 await cloudinaryConnection();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -65,17 +62,6 @@ app.use("/api/status", (req, res) =>
 app.use("/api/auth", userRouter);
 app.use("/api/messages", messageRouter);
 
-// catch all route
-if(process.env.NODE_ENV === 'production'){
-  // Serve frontend static files
-  app.use(express.static(path.join(__dirname, "frontend", "dist")));
-
-  // Catch all unmatched routes and serve index.html
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-  });
-}
-
 const startServer = async () => {
   try {
     await mongoDBConnection();
@@ -88,3 +74,16 @@ const startServer = async () => {
 };
 
 startServer();
+
+
+
+// In production, serve frontend static files and
+// handle all unmatched routes by serving index.html
+// This enables client-side routing for our SPA
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static(path.join(__dirname, "frontend", "dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  });
+}
