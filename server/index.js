@@ -62,11 +62,14 @@ app.use("/api/auth", userRouter);
 app.use("/api/messages", messageRouter);
 
 // catch all route
-app.use(express.static(path.join(process.cwd(), "dist"))); 
 if(process.env.NODE_ENV === 'production'){
-  app.get("/*", (req, res) => {
-    res.sendFile(path.join(process.cwd(), "dist", "index.html"))
-  })
+  // Serve frontend static files
+  app.use(express.static(path.join(__dirname, "frontend", "dist")));
+
+  // Catch all unmatched routes and serve index.html
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  });
 }
 
 await mongoDBConnection();
