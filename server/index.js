@@ -64,7 +64,7 @@ app.use("/api/messages", messageRouter);
 // catch all route
 app.use(express.static(path.join(process.cwd(), "dist"))); 
 if(process.env.NODE_ENV === 'production'){
-  app.get("*", (req, res) => {
+  app.get("/*", (req, res) => {
     res.sendFile(path.join(process.cwd(), "dist", "index.html"))
   })
 }
