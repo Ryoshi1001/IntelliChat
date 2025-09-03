@@ -20,6 +20,9 @@ console.log('app.tsx authUser:', authUser)
         <Route path="/" element={authUser ? <Home /> : <Navigate to={"/login"}/>} />
         <Route path="/login" element={!authUser ? <Login/> : <Navigate to={'/'} />}/>
         <Route path="/profile" element={authUser ? <Profile /> : <Navigate to={"/login"}/>}/>
+
+        {/* Catch-all: redirect to login or home depending on auth */}
+        <Route path="*" element={authUser ? <Navigate to={"/"}/> : <Navigate to={"/login"}/>}/>
       </Routes>
     </div>
   );
