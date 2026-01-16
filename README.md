@@ -7,8 +7,8 @@ IntelliChat is a real-time chat application that uses AI to intelligently genera
 
 ## 📸 Screenshots
 
-<img src="public/screenshots/intellichat-chat.webp" width="800" />
-<img src="public/screenshots/intellichat-ai-response.webp" width="800" />
+<img src="/frontend/public/screenshots/intellichat-chat.webp" width="800" />
+<img src="/frontend/public/screenshots/intellichat-ai-response.webp" width="800" />
 
 ---
 
